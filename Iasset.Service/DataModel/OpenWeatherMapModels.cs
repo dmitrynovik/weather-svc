@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Iasset.Service.Extensions;
 
@@ -49,7 +48,7 @@ namespace Iasset.Service.DataModel
         public int Sunset { get; set; }
     }
 
-    public class WeatherRoot
+    public class WeatherContainer
     {
         public Coord Coord { get; set; }
         public ICollection<Weather> Weather { get; set; }
@@ -67,18 +66,18 @@ namespace Iasset.Service.DataModel
 
     public class WeatherModel
     {
-        public WeatherModel(WeatherRoot root)
+        public WeatherModel(WeatherContainer root)
         {
             var weather = root.Weather.FirstOrDefault();
 
-            Location = $"{root.Coord?.Lat}, {root.Coord?.Lon}";
+            Location = $"{root.Coord?.Lat},{root.Coord?.Lon}";
             Time = DateTimeExtensions.FromUnixTime(root.Dt).ToString("dd-MMM-yyyy HH:mm:ss");
-            Wind = $"{root.Wind?.Deg}° {root.Wind?.Speed} kph";
-            Visibility = $"{root.Visibility} m";
-            Sky = $"{weather?.Main}, {weather?.Description}";
-            Temperature = $"{root.Main.Temp - 273:F2} °C";
-            Humidity = $"{root.Main.Humidity} %";
-            Pressure = $"{root.Main.Pressure} hPa";
+            Wind = $"{root.Wind?.Deg}° {root.Wind?.Speed}kph";
+            Visibility = $"{root.Visibility}m";
+            Sky = $"{weather?.Main}";
+            Temperature = $"{root.Main.Temp - 273:F2}°C";
+            Humidity = $"{root.Main.Humidity}%";
+            Pressure = $"{root.Main.Pressure}hPa";
         }
 
         public string Location { get; }

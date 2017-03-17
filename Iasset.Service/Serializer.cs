@@ -11,7 +11,7 @@ namespace Iasset.Service
             using (var reader = new StringReader(payload))
             {
                 var xmlSerializer = new XmlSerializer(typeof(CountryDataSet));
-                return (T)xmlSerializer.Deserialize(reader);
+                return (T) xmlSerializer.Deserialize(reader);
             }
         }
     }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 using Iasset.Service.DataModel;
 using Iasset.Service.WeatherProxy;
 using Newtonsoft.Json;
@@ -25,11 +23,11 @@ namespace Iasset.Service
             _apiKey = apiKey;
         }
 
-        public async Task<ICollection<string>> GetCitiesByCountry(string country)
+        public virtual ICollection<string> GetCitiesByCountry(string country)
         {
             if (string.IsNullOrWhiteSpace(country)) throw new ArgumentNullException(nameof(country));
 
-            var payload = await GetCitiesOfCountry(country);
+            var payload = _client.GetCitiesByCountry(country);
             if (string.IsNullOrWhiteSpace(payload))
                 return new string[0];
 
@@ -46,17 +44,11 @@ namespace Iasset.Service
             if (string.IsNullOrWhiteSpace(country)) throw new ArgumentNullException(nameof(country));
             if (string.IsNullOrWhiteSpace(city)) throw new ArgumentNullException(nameof(city));
 
-            var content = DownloadOpenWebMapContent(country, city);
-            var root = JsonConvert.DeserializeObject<WeatherRoot>(content);
-            return new WeatherModel(root);
+            var content = GetWeatherFromWeb(country, city);
+            return new WeatherModel(content);
         }
 
-        protected virtual async Task<string> GetCitiesOfCountry(string country)
-        {
-            return await _client.GetCitiesByCountryAsync(country);
-        }
-
-        protected virtual string DownloadOpenWebMapContent(string country, string city)
+        protected virtual WeatherContainer GetWeatherFromWeb(string country, string city)
         {
             var url = $"http://api.openweathermap.org/data/2.5/weather?q={city}.{country}&appid={_apiKey}";
             var client = new WebClient();
@@ -67,7 +59,8 @@ namespace Iasset.Service
 
                 using (var reader = new StreamReader(stream))
                 {
-                    return reader.ReadToEnd();
+                    var content = reader.ReadToEnd();
+                    return JsonConvert.DeserializeObject<WeatherContainer>(content);
                 }
             }
         }
