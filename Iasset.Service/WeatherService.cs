@@ -31,7 +31,7 @@ namespace Iasset.Service
             if (string.IsNullOrWhiteSpace(payload))
                 return new string[0];
 
-            var data = Serializer.Deserialize<CountryDataSet>(payload);
+            var data = XmlSerializer.Deserialize<CountryDataSet>(payload);
 
             return data.Table.Select(x => x.City)
                 .Distinct()
@@ -52,6 +52,7 @@ namespace Iasset.Service
         {
             var url = $"http://api.openweathermap.org/data/2.5/weather?q={city}.{country}&appid={_apiKey}";
             var client = new WebClient();
+
             using (var stream = client.OpenRead(url))
             {
                 if (stream == null)

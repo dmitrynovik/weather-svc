@@ -47,7 +47,7 @@
     <Compile Include="DataModel\WebServicesXModels.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\JsonExtenstions.cs" />
-    <Compile Include="Serializer.cs" />
+    <Compile Include="XmlSerializer.cs" />
     <Compile Include="Service References\WeatherProxy\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
