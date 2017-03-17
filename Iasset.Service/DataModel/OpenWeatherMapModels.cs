@@ -74,10 +74,12 @@ namespace Iasset.Service.DataModel
             Time = DateTimeExtensions.FromUnixTime(root.Dt).ToString("dd-MMM-yyyy HH:mm:ss");
             Wind = $"{root.Wind?.Deg}° {root.Wind?.Speed}kph";
             Visibility = $"{root.Visibility}m";
-            Sky = $"{weather?.Main}";
+            Sky = string.IsNullOrEmpty(weather?.Description) ? $"{weather?.Main}" : $"{weather?.Main} ({weather.Description})";
             Temperature = $"{root.Main.Temp - 273:F2}°C";
             Humidity = $"{root.Main.Humidity}%";
             Pressure = $"{root.Main.Pressure}hPa";
+            City = root.Name;
+            Country = root.Sys.Country;
         }
 
         public string Location { get; }
@@ -88,5 +90,7 @@ namespace Iasset.Service.DataModel
         public string Humidity { get; private set; }
         public string Pressure { get; set; }
         public string Temperature { get; set; }
+        public string Country { get; set; }
+        public object City { get; set; }
     }
 }

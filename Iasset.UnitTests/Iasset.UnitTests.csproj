@@ -49,7 +49,7 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakeWeatherService.cs" />
+    <Compile Include="FakeLondonWeatherService.cs" />
     <Compile Include="WeatherServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

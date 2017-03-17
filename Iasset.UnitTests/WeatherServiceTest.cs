@@ -8,7 +8,7 @@ namespace Iasset.UnitTests
     [TestFixture]
     public class WeatherServiceTest
     {
-        private readonly WeatherModel _londonWeather = new FakeWeatherService()
+        private readonly WeatherModel _londonWeather = new FakeLondonWeatherService()
             .GetWeather("United Kingdom", "London");
 
         public WeatherServiceTest()
@@ -31,7 +31,7 @@ namespace Iasset.UnitTests
         [Test]
         public void When_London_Sky_Is_Correct()
         {
-            Assert.AreEqual("Clouds", _londonWeather.Sky);
+            Assert.AreEqual("Clouds (broken clouds)", _londonWeather.Sky);
         }
 
         [Test]
@@ -56,6 +56,18 @@ namespace Iasset.UnitTests
         public void When_London_Wind_Is_Correct()
         {
             Assert.AreEqual("270° 3.6kph", _londonWeather.Wind);
+        }
+
+        [Test]
+        public void When_London_Country_Is_Correct()
+        {
+            Assert.AreEqual("GB", _londonWeather.Country);
+        }
+
+        [Test]
+        public void When_London_City_Is_Correct()
+        {
+            Assert.AreEqual("London", _londonWeather.City);
         }
     }
 }
