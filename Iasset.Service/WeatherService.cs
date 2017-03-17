@@ -23,7 +23,7 @@ namespace Iasset.Service
             _apiKey = apiKey;
         }
 
-        public virtual ICollection<string> GetCitiesByCountry(string country)
+        public ICollection<string> GetCitiesByCountry(string country)
         {
             if (string.IsNullOrWhiteSpace(country)) throw new ArgumentNullException(nameof(country));
 
@@ -48,7 +48,7 @@ namespace Iasset.Service
             return new WeatherModel(content);
         }
 
-        protected virtual WeatherContainer GetWeatherFromWeb(string country, string city)
+        public virtual WeatherContainer GetWeatherFromWeb(string country, string city)
         {
             var url = $"http://api.openweathermap.org/data/2.5/weather?q={city}.{country}&appid={_apiKey}";
             var client = new WebClient();

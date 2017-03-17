@@ -1,6 +1,9 @@
 ﻿using System;
+using Iasset.Service;
 using Iasset.Service.DataModel;
 using Iasset.Service.Extensions;
+using Iasset.Service.WeatherProxy;
+using Moq;
 using NUnit.Framework;
 
 namespace Iasset.UnitTests
@@ -8,11 +11,11 @@ namespace Iasset.UnitTests
     [TestFixture]
     public class WeatherServiceTest
     {
-        private readonly WeatherModel _londonWeather = new FakeLondonWeatherService()
-            .GetWeather("United Kingdom", "London");
+        private readonly WeatherModel _londonWeather;
 
         public WeatherServiceTest()
         {
+            _londonWeather = CreateService().GetWeather("United Kingdom", "London");
             Console.WriteLine(_londonWeather.ToJson());
         }
 
@@ -68,6 +71,26 @@ namespace Iasset.UnitTests
         public void When_London_City_Is_Correct()
         {
             Assert.AreEqual("London", _londonWeather.City);
+        }
+
+        private static WeatherService CreateService()
+        {
+            var mock = new Mock<WeatherService>(new GlobalWeatherSoapClient("GlobalWeatherSoap"), "api_key") { CallBase = true };
+
+            mock.Setup(m => m.GetWeatherFromWeb(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(new WeatherContainer
+                {
+                    Coord = new Coord {Lon = -0.13, Lat = 51.51},
+                    Weather = new[] {new Weather {Main = "Clouds", Description = "broken clouds"}},
+                    Main = new Main {Temp = 276.48, Pressure = 1020, Humidity = 93},
+                    Visibility = 10000,
+                    Wind = new Wind {Deg = 270, Speed = 3.6},
+                    Dt = 1489731600,
+                    Sys = new Sys {Country = "GB"},
+                    Name = "London"
+                });
+
+            return mock.Object;
         }
     }
 }

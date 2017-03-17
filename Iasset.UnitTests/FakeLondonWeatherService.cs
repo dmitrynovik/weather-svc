@@ -10,7 +10,7 @@ namespace Iasset.UnitTests
         public FakeLondonWeatherService() : base(new GlobalWeatherSoapClient("GlobalWeatherSoap"),
             ConfigurationManager.AppSettings["openweathermap.api.key"]) {  }
 
-        protected override WeatherContainer GetWeatherFromWeb(string country, string city)
+        public override WeatherContainer GetWeatherFromWeb(string country, string city)
         {
             return new WeatherContainer
             {
