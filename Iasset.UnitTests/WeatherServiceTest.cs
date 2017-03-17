@@ -75,7 +75,7 @@ namespace Iasset.UnitTests
 
         private static WeatherService CreateService()
         {
-            var mock = new Mock<WeatherService>(new GlobalWeatherSoapClient("GlobalWeatherSoap"), "api_key") { CallBase = true };
+            var mock = new Mock<WeatherService>(new GlobalWeatherSoapClient("endpoint"), "api_key") { CallBase = true };
 
             mock.Setup(m => m.GetWeatherFromWeb(It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(new WeatherContainer
