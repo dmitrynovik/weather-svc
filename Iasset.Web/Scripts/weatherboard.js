@@ -24,6 +24,7 @@ app.controller('weatherController', ['$scope', '$http', function ($scope, $http)
                 if (response.data && response.data.length) {
                         $scope.cities = response.data;
                         $scope.city = $scope.cities[0];
+                        $scope.changeCity();
                     }
                 },
                 function() {  });
@@ -31,6 +32,9 @@ app.controller('weatherController', ['$scope', '$http', function ($scope, $http)
     }
 
     $scope.changeCity = function() {
+
+        if (!$scope.city)
+            return;
 
         var url = "http://localhost:17753/api/weather/getweather?country=" + $scope.country + "&city=" + $scope.city;
         console.log("fetching weather from", url);
@@ -41,7 +45,7 @@ app.controller('weatherController', ['$scope', '$http', function ($scope, $http)
                     $scope.data = response.data;
 
                 },
-                function (err) { handleError(err) });
+                function () { });
     }
 
     $scope.getCities();

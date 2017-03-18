@@ -29,6 +29,7 @@ textarea {
 
 td {
     border-top-color: black !important;
+    width: 50%;
 }
 
 input, select {
