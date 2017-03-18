@@ -15,9 +15,11 @@
         <form>
             <div class="row">
                 <div class="col-md-6">
+                    <label>Country</label>
                     <input class="form-control" type="text" ng-model="country" placeholder="Country" ng-change="getCities()"/>
                 </div>
                 <div class="col-md-6">
+                    <label>City</label>
                     <select class="form-control" type="text" ng-model="city" placeholder="City"
                             ng-change="changeCity()"
                             ng-options="city as city for city in cities track by city">                        
