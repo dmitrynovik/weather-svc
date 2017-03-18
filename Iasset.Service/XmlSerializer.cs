@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Iasset.Service.DataModel;
 
 namespace Iasset.Service
 {
@@ -9,7 +8,7 @@ namespace Iasset.Service
         {
             using (var reader = new StringReader(payload))
             {
-                var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(CountryDataSet));
+                var xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
                 return (T) xmlSerializer.Deserialize(reader);
             }
         }
