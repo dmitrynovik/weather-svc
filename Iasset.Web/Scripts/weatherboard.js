@@ -1,29 +1,49 @@
-﻿var app = angular.module('weather-board', ['ui.bootstrap']);
+﻿var app = angular.module('weather-board', ['ui.bootstrap'   ]);
 
 app.controller('weatherController', ['$scope', '$http', function ($scope, $http) {
 
     console.log("Starting weatherController ...");
 
     $scope.country = "Australia";
-    $scope.city = "Sydney";
+    $scope.city = "Adelaide Airport";
+    $scope.cities = [$scope.city];
 
-    var url = "http://localhost:17753/api/weather/getweather?country=" + $scope.country + "&city=" + $scope.city;
-    console.log("fetching data from", url);
+    var handleError = function(err) {
+        console.error(err);
+        if (err.statusText)
+            alert(err.statusText);
+    }
+
+    $scope.getCities = function() {
+        var url = "http://localhost:17753/api/weather/getcities?country=" + $scope.country;
+        console.log("fetching cities from", url);
+
+        $http.get(url)
+            .then(function (response) {
+                console.log("received cities", response);
+                if (response.data && response.data.length) {
+                        $scope.cities = response.data;
+                        $scope.city = $scope.cities[0];
+                    }
+                },
+                function() {  });
+
+    }
 
     $scope.changeCity = function() {
 
+        var url = "http://localhost:17753/api/weather/getweather?country=" + $scope.country + "&city=" + $scope.city;
+        console.log("fetching weather from", url);
+
         $http.get(url)
             .then(function(response) {
-                    console.log("received data", response);
+                    console.log("received weather", response);
                     $scope.data = response.data;
 
                 },
-                function(err) {
-                    console.error(err);
-                    if (err.statusText)
-                        alert(err.statusText);
-                });
+                function (err) { handleError(err) });
     }
 
+    $scope.getCities();
     $scope.changeCity();
 }]);

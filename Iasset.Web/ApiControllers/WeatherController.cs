@@ -14,6 +14,12 @@ namespace Iasset.Web.ApiControllers
             _weatherService = weatherService;
         }
 
+        public IHttpActionResult GetCities(string country)
+        {
+            var cities = _weatherService.GetCitiesByCountry(country);
+            return Ok(cities);
+        }
+
         public IHttpActionResult GetWeather(string country, string city)
         {
             var weather = _weatherService.GetWeather(country, city);
