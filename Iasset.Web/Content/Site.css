@@ -35,3 +35,8 @@ td {
 input, select {
     border: 1px solid black !important;
 }
+
+label {
+    margin-left: 6px !important;
+    margin-top: 6px !important;
+}
