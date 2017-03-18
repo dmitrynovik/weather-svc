@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.bold {
+    font-weight: bold;
+}
+
+td {
+    border-top-color: black !important;
+}
+
+input, select {
+    border: 1px solid black !important;
+}

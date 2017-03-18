@@ -72,12 +72,12 @@ namespace Iasset.Service.DataModel
 
             Location = $"{root.Coord?.Lat},{root.Coord?.Lon}";
             Time = DateTimeExtensions.FromUnixTime(root.Dt).ToString("dd-MMM-yyyy HH:mm:ss");
-            Wind = $"{root.Wind?.Deg}° {root.Wind?.Speed}kph";
-            Visibility = $"{root.Visibility}m";
+            Wind = $"{root.Wind?.Deg}° {root.Wind?.Speed} kph";
+            Visibility = $"{root.Visibility} m";
             Sky = string.IsNullOrEmpty(weather?.Description) ? $"{weather?.Main}" : $"{weather?.Main} ({weather.Description})";
-            Temperature = $"{root.Main.Temp - 273:F2}°C";
-            Humidity = $"{root.Main.Humidity}%";
-            Pressure = $"{root.Main.Pressure}hPa";
+            Temperature = $"{root.Main.Temp - 273:F2} °C";
+            Humidity = $"{root.Main.Humidity} %";
+            Pressure = $"{root.Main.Pressure} hPa";
             City = root.Name;
             Country = root.Sys.Country;
         }
