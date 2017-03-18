@@ -8,6 +8,9 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using Iasset.Service;
 using Iasset.Service.WeatherProxy;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Iasset.Web
 {
@@ -21,7 +24,16 @@ namespace Iasset.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            ConfigureJson();
             ConfigureIoC();
+        }
+
+        private static void ConfigureJson()
+        {
+            var config = GlobalConfiguration.Configuration;
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new StringEnumConverter(true));
         }
 
         private static void ConfigureIoC()

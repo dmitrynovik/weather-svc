@@ -21,8 +21,8 @@ namespace Iasset.Service.DataModel
     public class Main
     {
         public double Temp { get; set; }
-        public int Pressure { get; set; }
-        public int Humidity { get; set; }
+        public double Pressure { get; set; }
+        public double Humidity { get; set; }
         public double TempMin { get; set; }
         public double TempMax { get; set; }
     }
@@ -30,12 +30,12 @@ namespace Iasset.Service.DataModel
     public class Wind
     {
         public double Speed { get; set; }
-        public int Deg { get; set; }
+        public double Deg { get; set; }
     }
 
     public class Clouds
     {
-        public int All { get; set; }
+        public double All { get; set; }
     }
 
     public class Sys
@@ -44,8 +44,8 @@ namespace Iasset.Service.DataModel
         public int Id { get; set; }
         public double Message { get; set; }
         public string Country { get; set; }
-        public int Sunrise { get; set; }
-        public int Sunset { get; set; }
+        public double Sunrise { get; set; }
+        public double Sunset { get; set; }
     }
 
     public class WeatherContainer
@@ -54,7 +54,7 @@ namespace Iasset.Service.DataModel
         public ICollection<Weather> Weather { get; set; }
         public string Base { get; set; }
         public Main Main { get; set; }
-        public int Visibility { get; set; }
+        public double Visibility { get; set; }
         public Wind Wind { get; set; }
         public Clouds Clouds { get; set; }
         public int Dt { get; set; }
